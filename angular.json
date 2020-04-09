@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "organicShop"
+    }
+  },
+  "defaultProject": "organicShop",
+  "cli": {
+    "analytics": false
+  }
 }
