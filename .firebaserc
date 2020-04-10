@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "organic-shop-d539c"
+    "default": "fadhlaouiorganicshop",
+    "staging": "fadhlaouiorganicshop"
   }
 }
