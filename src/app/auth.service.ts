@@ -2,9 +2,9 @@ import { Observable } from 'rxjs/observable';
 import { UserService } from './user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { ActivatedRoute } from '@angular/router';
 import { AppUser } from './models/app-user';
+import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/Observable/of';
 @Injectable({
