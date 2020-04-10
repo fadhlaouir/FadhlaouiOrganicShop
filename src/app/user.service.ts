@@ -1,7 +1,8 @@
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+
 @Injectable()
 export class UserService {
   constructor(private db: AngularFireDatabase) {}
