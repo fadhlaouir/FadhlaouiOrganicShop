@@ -13,7 +13,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   products: Product[];
   items: Product[] = [];
   itemCount: number;
-  filteredProducts: any[];
   subscription: Subscription;
   tableResource: DataTableResource<Product>;
 
@@ -22,10 +21,11 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       .getAll()
       .valueChanges()
       .subscribe((products: Product[]) => {
-        this.filteredProducts = this.products = products;
+        this.products = products;
         this.initializeTable(products);
       });
   }
+
   private initializeTable(products: Product[]) {
     this.tableResource = new DataTableResource(products);
     this.tableResource
@@ -33,19 +33,25 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       .then((items) => (this.items = items));
     this.tableResource.count().then((count) => (this.itemCount = count));
   }
+
   reloadItems(params) {
     if (!this.tableResource) return;
     this.tableResource.query(params).then((items) => (this.items = items));
   }
+
   filter(query: string) {
-    this.filteredProducts = query
+    let filteredProducts = query
       ? this.products.filter((p) =>
           p.title.toLowerCase().includes(query.toLowerCase())
         )
       : this.products;
+
+    this.initializeTable(filteredProducts);
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
   ngOnInit() {}
 }
