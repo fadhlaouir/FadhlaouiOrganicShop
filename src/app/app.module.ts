@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
+import { DataTableModule } from 'angular5-data-table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { CustomFormsModule } from 'ng2-validation';
   ],
   imports: [
     BrowserModule,
+    DataTableModule,
     FormsModule,
     AppRoutingModule,
     CustomFormsModule,
