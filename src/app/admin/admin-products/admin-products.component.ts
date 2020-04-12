@@ -19,7 +19,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   constructor(private productService: ProductService) {
     this.subscription = this.productService
       .getAll()
-      .valueChanges()
+      // .valueChanges()
       .subscribe((products: Product[]) => {
         this.products = products;
         this.initializeTable(products);
