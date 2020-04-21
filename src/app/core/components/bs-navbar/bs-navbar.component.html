@@ -10,9 +10,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/shopping-cart" routerLinkActive="active">
             <i class="fas fa-shopping-cart"></i>
-            <span
-              class="badge badge-warning badge-pill"
-              *ngIf="cart$ | async as cart">
+            <span class="badge badge-warning badge-pill" *ngIf="cart$ | async as cart">
               {{ cart.totalItemsCount }}
             </span>
           </a>
@@ -25,7 +23,8 @@
           </li>
         </ng-template>
         <li class="nav-item dropdown" ngbDropdown *ngIf="appUser; else anonymousUser" routerLinkActive="active">
-          <a class="nav-link dropdown-toggle btn" ngbDropdownToggle id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ appUser.name }}</a>
+          <a class="nav-link dropdown-toggle btn" ngbDropdownToggle id="dropdown01" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">{{ appUser.name }}</a>
           <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdown01">
             <a class="dropdown-item" routerLink="/my/orders" routerLinkActive="active">My Orders</a>
             <ng-container *ngIf="appUser.isAdmin">
