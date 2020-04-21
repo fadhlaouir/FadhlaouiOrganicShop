@@ -1,5 +1,6 @@
 <div class="card" *ngIf="product.title">
-  <div [style.backgroundImage]="'url(' + product.imageUrl + ')'" class="thumbnail"></div>
+  <!-- <div [style.backgroundImage]="'url(' + product.imageUrl + ')'" class="thumbnail"></div> -->
+  <img *ngIf="product.imageUrl" class="card-img-top" [src]="product.imageUrl" alt="{{ product.title }}">
   <div class="card-body">
     <h4 class="card-title">{{ product.title }}</h4>
     <p class="card-text">{{ product.price | currency:'USD':true }}</p>
