@@ -1,4 +1,3 @@
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +12,7 @@ import { OrderService } from 'shared/services/order.service';
 import { ProductService } from 'shared/services/product.service';
 import { ShoppingCartService } from 'shared/services/shopping-cart.service';
 import { UserService } from 'shared/services/user.service';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -23,9 +23,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CustomFormsModule,
     DataTableModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
+    AngularFireAuthModule
   ],
-  declarations: [ProductCardComponent, ProductQuantityComponent],
+  declarations: [
+    ProductCardComponent,
+    ProductQuantityComponent
+  ],
   exports: [
     ProductCardComponent,
     ProductQuantityComponent,
@@ -35,7 +38,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DataTableModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    NgbModule,
+    NgbModule
   ],
   providers: [
     AuthService,
@@ -44,7 +47,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CategoryService,
     ProductService,
     ShoppingCartService,
-    OrderService,
-  ],
+    OrderService
+  ]
 })
-export class SharedModule {}
+export class SharedModule { }

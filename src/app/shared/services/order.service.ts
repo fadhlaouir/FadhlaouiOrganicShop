@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { ShoppingCartService } from 'shared/services/shopping-cart.service';
-import 'rxjs/add/operator/map';
+
 @Injectable()
 export class OrderService {
+
   constructor(
     private db: AngularFireDatabase,
     private shoppingCartService: ShoppingCartService
-  ) {}
+  ) { }
 
   getOrders() {
-    return this.db
-      .list('/orders')
-      .snapshotChanges()
-      .map((actions) => {
-        return actions.map((action) => ({
-          key: action.key,
-          ...action.payload.val(),
-        }));
-      });
+    return this.db.list('/orders').snapshotChanges().map(actions=>{
+      return actions.map(action=>({key: action.key, ...action.payload.val() }));
+    });
   }
 
   getSingleOrder(id) {
@@ -33,14 +28,9 @@ export class OrderService {
 
   getOrdersByUser(userId: string) {
     // return this.db.list('/orders', ref => ref.orderByChild('userId').equalTo(userId)).valueChanges();
-    return this.db
-      .list('/orders', (ref) => ref.orderByChild('userId').equalTo(userId))
-      .snapshotChanges()
-      .map((actions) => {
-        return actions.map((action) => ({
-          key: action.key,
-          ...action.payload.val(),
-        }));
-      });
+    return this.db.list('/orders', ref => ref.orderByChild('userId').equalTo(userId)).snapshotChanges().map(actions=>{
+      return actions.map(action=>({key: action.key, ...action.payload.val() }));
+    });
   }
+
 }

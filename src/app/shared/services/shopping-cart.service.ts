@@ -8,7 +8,10 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ShoppingCartService {
-  constructor(private db: AngularFireDatabase) {}
+
+  constructor(
+    private db: AngularFireDatabase
+  ) { }
 
   async removeItem(item: Product) {
     let cartId = await this.getOrCreateCartId();
@@ -27,29 +30,27 @@ export class ShoppingCartService {
   async removeFromCart(product: Product) {
     this.updateItem(product, -1);
   }
-
+  
   async getCart(): Promise<Observable<ShoppingCart>> {
     let cartId = await this.getOrCreateCartId();
-    return this.db
-      .object('/shopping-carts/' + cartId)
-      .valueChanges()
-      .map((x) => new ShoppingCart(x['items']));
+    return this.db.object('/shopping-carts/' + cartId).valueChanges()
+      .map(x => new ShoppingCart(x['items']));
   }
 
-  private create() {
+  private create(){
     return this.db.list('/shopping-carts').push({
-      dateCreated: new Date().getTime(),
+      dateCreated: new Date().getTime()
     });
   }
 
-  private getItem(cartId: string, productId: string) {
+  private getItem(cartId: string, productId: string){
     return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
   }
 
-  private async getOrCreateCartId(): Promise<string> {
+  private async getOrCreateCartId(): Promise<string>{
     let cartId = localStorage.getItem('cartId');
-    if (cartId) return cartId;
-
+    if(cartId) return cartId;
+    
     let result = await this.create();
     localStorage.setItem('cartId', result.key);
     return result.key;
@@ -58,35 +59,30 @@ export class ShoppingCartService {
   private async updateItem(product: Product, change: number) {
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.key);
-    item$
-      .valueChanges()
-      .take(1)
-      .subscribe((item) => {
-        let productQuantity = (product.quantity || 0) + change;
-        let itemQuantity;
-        if (item) {
-          itemQuantity = item['quantity'];
-          if (item['quantity'] === 0 || productQuantity === 0) {
-            return item$.remove();
-          }
-          item$.update({
-            title: product.title,
-            imageUrl: product.imageUrl,
-            price: product.price,
-            quantity: itemQuantity + change,
-          });
-        } else {
-          itemQuantity = productQuantity;
-          if (productQuantity === 0 || itemQuantity === 0) {
-            return item$.remove();
-          }
-          item$.update({
-            title: product.title,
-            imageUrl: product.imageUrl,
-            price: product.price,
-            quantity: productQuantity,
-          });
+    item$.valueChanges().take(1).subscribe(item => {
+      let productQuantity = (product.quantity || 0) + change;
+      let itemQuantity;
+      if (item) {
+        itemQuantity = item['quantity'];
+        if(item['quantity'] === 0 || productQuantity === 0) {
+          return item$.remove();
         }
-      });
+        item$.update({
+        title: product.title,
+        imageUrl: product.imageUrl,
+        price: product.price,
+        quantity: itemQuantity + change });
+      } else {
+        itemQuantity = productQuantity;
+        if(productQuantity === 0 || itemQuantity === 0) {
+          return item$.remove();
+        }
+        item$.update({
+        title: product.title,
+        imageUrl: product.imageUrl,
+        price: product.price,
+        quantity: productQuantity });
+      }
+    })
   }
 }
